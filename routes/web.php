@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,23 +67,26 @@ Route::get('/user', [UserController::class, 'getUser']);
 // });
 
 //Спосіб2
-Route::group([
-    'as' => 'tasks.', //до імен маршрутів додається префікс tasks.
-    'prefix' => 'tasks', //до url маршрутів додати префікс /tasks
-    //'midleware' =>'auth'
-], function () {
-    //маршрут на сторінку перегляду усіх записів-тасків
-    Route::get('/',[TaskController::class, 'index'])->name('index');
+// Route::group([
+//     'as' => 'tasks.', //до імен маршрутів додається префікс tasks.
+//     'prefix' => 'tasks', //до url маршрутів додати префікс /tasks
+//     //'midleware' =>'auth'
+// ], function () {
+//     //маршрут на сторінку перегляду усіх записів-тасків
+//     Route::get('/',[TaskController::class, 'index'])->name('index');
     //сторінка яка містить форму, що відповідає за створення таска
-    Route::get('/create',[TaskController::class, 'create'])->name('create');
-    //сторінка яка відповідає за логіку створення маршруту, приймає дані з форми, створенння відповідного запису у БД
-    Route::post('/',[TaskController::class, 'store'])->name('store');
-    //перехід за наступним маршрутом має відобразити сторінку з описом конкретного таску
-    Route::get('/{task}',[TaskController::class, 'show'])->name('show');
-    //роут повертає сторінку з формою для редагування конкретного таску
-    Route::get('/{task}/edit',[TaskController::class, 'edit'])->name('edit');
-    //не відображає сторінку а просто робить оновлення таску в БД
-    Route::put('/{task}',[TaskController::class, 'update'])->name('update');
-    //видалення таску з БД
-    Route::delete('/{task}',[TaskController::class, 'destroy'])->name('destroy');
-});
+    // Route::get('/create',[TaskController::class, 'create'])->name('create');
+    // //сторінка яка відповідає за логіку створення маршруту, приймає дані з форми, створенння відповідного запису у БД
+    // Route::post('/',[TaskController::class, 'store'])->name('store');
+    // //перехід за наступним маршрутом має відобразити сторінку з описом конкретного таску
+    // Route::get('/{task}',[TaskController::class, 'show'])->name('show');
+    // //роут повертає сторінку з формою для редагування конкретного таску
+    // Route::get('/{task}/edit',[TaskController::class, 'edit'])->name('edit');
+    // //не відображає сторінку а просто робить оновлення таску в БД
+    // Route::put('/{task}',[TaskController::class, 'update'])->name('update');
+    // //видалення таску з БД
+    // Route::delete('/{task}',[TaskController::class, 'destroy'])->name('destroy');
+//});
+
+//Спосіб3: якщо контроллер TaskController створено як ресурсний
+Route::resource('tasks',TaskController::class);
