@@ -39,7 +39,17 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = [
+            'Task1',
+            'Task2',
+            'Task3',
+        ];
+
+        $userName = 'John';
+        $userRole = 'admin';
+        //$userRole = 'user';
+
+        return view('tasks.index', ['tasks' => $tasks, 'user' => $userName, 'role' => $userRole]);
     }
 
     /**
@@ -63,7 +73,12 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $task = [
+            'title' => 'Task'. $id,
+            'description' => 'Description of task1',
+        ];
+
+        return view('tasks.show',['task'=>$task]);
     }
 
     /**
