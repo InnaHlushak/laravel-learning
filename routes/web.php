@@ -21,6 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/welcome-laravel', function () {
+    return view('welcome-laravel');
+});
 
 //Спосіб1
 // Route::get('/palmo', function() {
