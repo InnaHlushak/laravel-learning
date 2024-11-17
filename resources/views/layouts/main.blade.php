@@ -19,12 +19,13 @@
             <span class="fs-4">Місто Івано-Франківськ</span>
         </a>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-dark">Перелік завдань</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Створити завдання</a></li>
+            <li><a href="{{ route('tasks.index') }}" class="nav-link px-3 link-primary" >ПЕРЕЛІК ЗАВДАНЬ</a></li>
+            <li><a href="{{ route('tasks.create') }}" class="nav-link px-3 link-primary">СТВОРИТИ ЗАВДАННЯ</a></li>
         </ul>
         <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">Головна</button>
-            <button type="button" class="btn btn-outline-primary me-2">Вийти</button>
+            <a href="{{ route('welcome') }}" class="btn btn-primary">Головна</a>
+            <a href="#" class="btn btn-outline-primary">Вийти</a>
+            <!-- <button type="button" class="btn btn-outline-primary me-2">Вийти</button> -->
         </div>
     </header>
 

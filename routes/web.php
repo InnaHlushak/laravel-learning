@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-Route::get('/welcome-laravel', function () {
-    return view('welcome-laravel');
-});
+// Route::get('/welcome-laravel', function () {
+//     return view('welcome-laravel');
+// });
 
 //Спосіб1
 // Route::get('/palmo', function() {
@@ -34,10 +34,11 @@ Route::get('/welcome-laravel', function () {
 //Route::view('palmo', 'palmo');
 
 //Спосіб: передати логіку обробки маршруту на контроллер UserController
-Route::get('/user', [UserController::class, 'getUser']);
+//Route::get('/user', [UserController::class, 'getUser']);
 
 //Іменовані маршрути
 //Route::get('/user', [UserController::class, 'getUser'])->name('get-name');
+
 
 //отримати ідентифікатор користувача з URL-адреси, визначивши параметри маршруту:
 //Route::get('/user/{id}/profile/{groupId}', [UserController::class, 'getUser']);
@@ -93,3 +94,5 @@ Route::get('/user', [UserController::class, 'getUser']);
 
 //Спосіб3: якщо контроллер TaskController створено як ресурсний
 Route::resource('tasks',TaskController::class);
+
+

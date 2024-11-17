@@ -13,16 +13,20 @@
         <div class="row mb-3">
             <label for="description" class="col-sm-2 col-form-label">Опис</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="description" name="description" placeholder="Введіть опис">
+                <textarea class="form-control" id="description" name="description" placeholder="Введіть опис"></textarea>
             </div>
         </div>
         <div class="row mb-3">
             <label for="category_id" class="col-sm-2 col-form-label">Категорія</label>
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" id="category_id" name="category_id">
-                    <option value="1">Категорія 1</option>
+                    <!-- <option value="1">Категорія 1</option>
                     <option value="2">Категорія 2</option>
-                    <option value="3">Категорія 3</option>
+                    <option value="3">Категорія 3</option> -->
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                    @endforeach
                 </select>
             </div>
         </div>

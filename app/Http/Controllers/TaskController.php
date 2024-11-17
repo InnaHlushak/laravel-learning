@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category; //щоб звернутися до моделі Category
+use App\Models\Task; //щоб звернутися до моделі Task
 
 //Спосіб1: основний контроллер
 // class TaskController extends Controller
@@ -57,7 +59,14 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        //Звернемося до моделі Category i повернемо усі записи із таблиці categories
+        $categories = Category::all();
+        // //dd($categories);
+        // foreach ($categories as $category) {
+        //     dump($category->name);
+        // }
+
+        return view('tasks.create',['categories'=>$categories]);
     }
 
     /**
@@ -65,7 +74,16 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
+        //отримати всі дані із форми крім "прихованого" поля _token
+        $data = $request->except('_token');
+        //dd($data);
+
+        //Звернутися до моделі Task і створити у відповідній таблиці запис
+        $task = Task::create($data);
+        //dd($task);
+        //Зробити редірект на сторінку із цим завданням
+        return redirect()->route('tasks.show',['task'=>$task->id]);
     }
 
     /**
@@ -73,10 +91,12 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = [
-            'title' => 'Task'. $id,
-            'description' => 'Description of task1',
-        ];
+        // $task = [
+        //     'title' => 'Task'. $id,
+        //     'description' => 'Description of task1',
+        // ];
+        //Звернутися до моделі Task і знайти 1-й запис у таблиці із $id 
+        $task = Task::findOrFail($id);
 
         return view('tasks.show',['task'=>$task]);
     }
