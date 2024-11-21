@@ -42,15 +42,9 @@
             </div>
         </div>
         <div class="row mb-3">
-            <label for="deadline_date" class="col-sm-2 col-form-label">Термін</label>
+            <label for="deadline" class="col-sm-2 col-form-label">Термін</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" id="deadline" name="deadline_date" placeholder="10.0">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="deadline_time" class="col-sm-2 col-form-label">Час</label>
-            <div class="col-sm-10">
-                <input type="time" class="form-control" id="time" name="deadline_time" placeholder="10.0">
+                <input type="datetime-local" class="form-control" id="deadline" name="deadline" placeholder="10.0">
             </div>
         </div>
         <div class="row mb-3">

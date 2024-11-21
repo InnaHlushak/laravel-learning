@@ -39,7 +39,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $tasks = [
             'Task1',
@@ -50,6 +50,28 @@ class TaskController extends Controller
         $userName = 'John';
         $userRole = 'admin';
         //$userRole = 'user';
+
+        //перевірка чи відповідає шлях вхідного  маршруту шаблону api/*
+        if ($request->is('api/*')) {
+            //повернути рядок
+            return 'Відповідь з API';
+            //якщо повертати масив то він перетвор у JSON
+            //return [1,2,3];
+            //повернути відповідь у форматі JSON
+            // return response()->json([
+            //     'name' => 'Abigail',
+            //     'state' => 'CA',
+            // ]);
+            //повернути Eloquent-колекцію  моделі
+            //return Category::all();
+            //додати файлі cookie до відповіді
+            //return response('Hello World')->cookie('name-cookie', 'value-cookie', 60);
+        }
+
+        //перевірка чи відповідає вхідний запит іменованому маршруту
+        // if ($request->is('tasks.*')) {
+        //     return 'Відповідь з tasks';
+        // }
 
         return view('tasks.index', ['tasks' => $tasks, 'user' => $userName, 'role' => $userRole]);
     }
@@ -74,10 +96,18 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request); //вивід обєкта $request
+        //dd($request->path()); //отримання шляху запиту $request
+        
+        //отримати всі дані із запиту
         //dd($request->all());
-        //отримати всі дані із форми крім "прихованого" поля _token
+         
+        //отримати всі дані із форми крім "прихованого" поля
         $data = $request->except('_token');
-        //dd($data);
+       //dd($data);
+
+       //отримати значення конкретного параметру (за ключем)
+       //dd($request->input('name')); 
 
         //Звернутися до моделі Task і створити у відповідній таблиці запис
         $task = Task::create($data);
