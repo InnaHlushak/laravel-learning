@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category; //щоб звернутися до моделі Category
 use App\Models\Task; //щоб звернутися до моделі Task
+use App\Http\Requests\TaskRequest; //щоб звернутися до запиту на форму TaskRequest
+
 
 //Спосіб1: основний контроллер
 // class TaskController extends Controller
@@ -114,8 +116,15 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
+        //логіка ВАЛІДАЦІЇ
+        // $request->validate([
+        //     'name'=> 'required|min:3',
+        //     'description'=> 'required|min:5|max:255',
+        //     'category_id' =>['required','exists:categories,id'],
+        // ]);
+
         // dd($request); //вивід обєкта $request
         //dd($request->path()); //отримання шляху запиту $request
         
@@ -133,7 +142,8 @@ class TaskController extends Controller
         $task = Task::create($data);
         //dd($task);
         //Зробити редірект на сторінку із цим завданням
-        return redirect()->route('tasks.show',['task'=>$task->id]);
+        //return redirect()->route('tasks.show',['task'=>$task->id]);
+        return redirect()->route('tasks.show',[$task]);
     }
 
     /**
