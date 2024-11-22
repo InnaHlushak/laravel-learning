@@ -39,42 +39,62 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
-        $tasks = [
-            'Task1',
-            'Task2',
-            'Task3',
-        ];
-
-        $userName = 'John';
+        $userName = 'Inna';
         $userRole = 'admin';
-        //$userRole = 'user';
 
         //перевірка чи відповідає шлях вхідного  маршруту шаблону api/*
         if ($request->is('api/*')) {
-            //повернути рядок
             return 'Відповідь з API';
-            //якщо повертати масив то він перетвор у JSON
-            //return [1,2,3];
-            //повернути відповідь у форматі JSON
-            // return response()->json([
-            //     'name' => 'Abigail',
-            //     'state' => 'CA',
-            // ]);
-            //повернути Eloquent-колекцію  моделі
-            //return Category::all();
-            //додати файлі cookie до відповіді
-            //return response('Hello World')->cookie('name-cookie', 'value-cookie', 60);
         }
 
-        //перевірка чи відповідає вхідний запит іменованому маршруту
-        // if ($request->is('tasks.*')) {
-        //     return 'Відповідь з tasks';
-        // }
+         //звернутися до моделі Task, повернути усі записи, упорядковані(спадання) за датою створення 
+        $tasks = Task::orderBy('created_at','desc');
+        //зробити ПАГІНАЦІЮ
+        $tasks = $tasks->paginate(3);
 
-        return view('tasks.index', ['tasks' => $tasks, 'user' => $userName, 'role' => $userRole]);
+        return view('tasks.index', ['tasks'=>$tasks, 'user' => $userName, 'role' => $userRole]);
     }
+
+    //Попередній пробний варіант методу index()
+    // public function index(Request $request)
+    // {
+    //     $tasks = [
+    //         'Task1',
+    //         'Task2',
+    //         'Task3',
+    //     ];
+
+    //     $userName = 'John';
+    //     $userRole = 'admin';
+    //     //$userRole = 'user';
+
+    //     //перевірка чи відповідає шлях вхідного  маршруту шаблону api/*
+    //     if ($request->is('api/*')) {
+    //         //повернути рядок
+    //         return 'Відповідь з API';
+    //         //якщо повертати масив то він перетвор у JSON
+    //         //return [1,2,3];
+    //         //повернути відповідь у форматі JSON
+    //         // return response()->json([
+    //         //     'name' => 'Abigail',
+    //         //     'state' => 'CA',
+    //         // ]);
+    //         //повернути Eloquent-колекцію  моделі
+    //         //return Category::all();
+    //         //додати файлі cookie до відповіді
+    //         //return response('Hello World')->cookie('name-cookie', 'value-cookie', 60);
+    //     }
+
+    //     //перевірка чи відповідає вхідний запит іменованому маршруту
+    //     // if ($request->is('tasks.*')) {
+    //     //     return 'Відповідь з tasks';
+    //     // }
+
+    //     return view('tasks.index', ['tasks' => $tasks, 'user' => $userName, 'role' => $userRole]);
+    // }
 
     /**
      * Show the form for creating a new resource.
