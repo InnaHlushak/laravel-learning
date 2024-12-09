@@ -18,14 +18,32 @@
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-4">Місто Івано-Франківськ</span>
         </a>
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="{{ route('tasks.index') }}" class="nav-link px-3 link-primary" >ПЕРЕЛІК ЗАВДАНЬ</a></li>
-            <li><a href="{{ route('tasks.create') }}" class="nav-link px-3 link-primary">СТВОРИТИ ЗАВДАННЯ</a></li>
-        </ul>
+        <!-- якщо користувач авторизований -->
+            @auth()
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="{{ route('tasks.index') }}" class="nav-link px-3 link-primary" >ПЕРЕЛІК ЗАВДАНЬ</a></li>
+                    <li><a href="{{ route('tasks.create') }}" class="nav-link px-3 link-primary">СТВОРИТИ ЗАВДАННЯ</a></li>
+                </ul>
+            @endauth
         <div class="col-md-3 text-end">
             <a href="{{ route('welcome') }}" class="btn btn-primary">Головна</a>
-            <a href="#" class="btn btn-outline-primary">Вийти</a>
-            <!-- <button type="button" class="btn btn-outline-primary me-2">Вийти</button> -->
+
+            <!-- якщо користувач не зареєстрований -->
+             @guest()
+                <a href="{{ route('login') }}" class="btn btn-outline-primary">Логін</a>
+                <a href="{{ route('register') }}" class="btn btn-outline-primary">Реєстрація</a>
+             @endguest
+            <!-- якщо користувач авторизований -->
+            @auth()
+            <a href="{{ route('logout') }}" 
+                class="btn btn-outline-primary"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Вийти
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endauth
         </div>
     </header>
 

@@ -93,6 +93,10 @@ Route::get('/', function () {
 //});
 
 //Спосіб3: якщо контроллер TaskController створено як ресурсний
-Route::resource('tasks',TaskController::class);
+//Route::resource('tasks',TaskController::class);
+
+
+//Доступ до маршрутів лише для автентифікованого користувача
+Route::resource('tasks',TaskController::class)->middleware('auth');
 
 

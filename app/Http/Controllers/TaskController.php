@@ -7,6 +7,8 @@ use App\Models\Category; //щоб звернутися до моделі Categor
 use App\Models\Task; //щоб звернутися до моделі Task
 use App\Http\Requests\TaskRequest; //щоб звернутися до запиту на форму TaskRequest
 
+use Illuminate\Support\Facades\Storage; //щоб використовувати фасад для роботи з файлами
+
 
 //Спосіб1: основний контроллер
 // class TaskController extends Controller
@@ -151,10 +153,15 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
+        //Завантажити файл
+       // return Storage::download('public/test.txt');
+
+
         // $task = [
         //     'title' => 'Task'. $id,
         //     'description' => 'Description of task1',
         // ];
+
         //Звернутися до моделі Task і знайти 1-й запис у таблиці із $id 
         $task = Task::findOrFail($id);
 
